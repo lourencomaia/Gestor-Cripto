@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Gestor Cripto</string>
+    <string name="AdicionarMoeda">Adicionar Nova Moeda á Carteira </string>
+
+    <string-array name="moedaGovernamentalListaItens">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>BRL</item>
+        <item>GBP</item>
+        <item>CHF</item>
+    </string-array>
+
+</resources>
