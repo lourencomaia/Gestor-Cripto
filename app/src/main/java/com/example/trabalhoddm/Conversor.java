@@ -1,11 +1,16 @@
 package com.example.trabalhoddm;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,10 +19,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class Conversor extends AppCompatActivity {
         private Spinner mSpCriptoMoedas;
         private Spinner mSpMoedasGovernamentais;
         private CriptoMoedasAdpater adapter;
+        ActivityResultLauncher<Intent> activityResultLauncher;
 
         DBhelper db;
         Intent i;
@@ -28,6 +34,38 @@ public class MainActivity extends AppCompatActivity {
 
         double Total;
 
+    //Codigo referente ao menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_conversor,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.idMenuConversor:{
+                i = new Intent(Conversor.this, ActivityPrincipal.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+            case R.id.idMenuCarteira:{
+                i = new Intent(Conversor.this, Carteira.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+            case  R.id.idMenuAdicionarMoeda:{
+                i = new Intent(Conversor.this, NovaMoeda.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //FIM Codigo referente ao menu
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         db = new DBhelper(this);
 
         mSpCriptoMoedas = findViewById(R.id.idSpCriptoMoedas);
-        adapter = new CriptoMoedasAdpater(MainActivity.this, Data.getMoedas());
+        adapter = new CriptoMoedasAdpater(Conversor.this, Data.getMoedas());
         mSpCriptoMoedas.setAdapter(adapter);
 
 
@@ -78,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.idBtnCarteira:
-                  Intent i = new Intent( MainActivity.this,Carteira.class);
+                  Intent i = new Intent( Conversor.this,Carteira.class);
                   startActivity(i);
                   break;
 
@@ -100,9 +138,9 @@ public class MainActivity extends AppCompatActivity {
             new BitcoinValueTask(mTvValorConvertido,criptoMoeda,Double.parseDouble(quantidadeDeMoedasConcerter),moedaGovernamental ).execute();
             CriptoMoeda moeda1 = new CriptoMoeda(criptoMoeda,Double.parseDouble( mTvValorConvertido.getText().toString()));
             //Total +=Double.parseDouble( mTvValorConvertido.getText().toString()) + 1;
-            Toast.makeText(this,moeda1.getMoeda()+"= "+moeda1.getQuantidade(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,moeda1.getMoeda()+"= "+moeda1.getQuantidade(), Toast.LENGTH_SHORT).show();
         }catch (Exception e){
-            Toast.makeText(this,criptoMoeda, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -129,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             long res = db.insert_Valor(moeda, Double.parseDouble(quantidade));
 
             if(res>0){
-                Toast.makeText(MainActivity.this,
+                Toast.makeText(Conversor.this,
                         "Moeda inserida com sucesso", Toast.LENGTH_SHORT).show();
             //caso se a moeda ja exista na base de dados
             }else if(res == -1){
@@ -137,13 +175,13 @@ public class MainActivity extends AppCompatActivity {
 
                 db.Update_Moeda(moeda, Double.parseDouble(
                         String.valueOf(Double.parseDouble(quantidade)+valorAnterior)));
-                Toast.makeText(MainActivity.this, "valor atualizado com sucesso",
+                Toast.makeText(Conversor.this, "valor atualizado com sucesso",
                         Toast.LENGTH_SHORT).show();
 
             }
-            else{ Toast.makeText(MainActivity.this,
+            else{ Toast.makeText(Conversor.this,
                     "Erro ao inserir user" , Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, moeda, Toast.LENGTH_SHORT).show();
+                Toast.makeText(Conversor.this, moeda, Toast.LENGTH_SHORT).show();
 
             }
         }

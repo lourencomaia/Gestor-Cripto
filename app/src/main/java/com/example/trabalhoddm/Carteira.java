@@ -4,12 +4,16 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,8 +29,41 @@ public class Carteira extends AppCompatActivity {
     DBhelper db;
     ListView mLv_moedas;
     Button mBtnAdicinarMoeda;
+    Intent i;
 
     ActivityResultLauncher<Intent> activityResultLauncher;
+
+    //Codigo referente ao menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_conversor,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.idMenuConversor:{
+                i = new Intent(Carteira.this, ActivityPrincipal.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+            case R.id.idMenuCarteira:{
+                i = new Intent(Carteira.this, Conversor.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+            case  R.id.idMenuAdicionarMoeda:{
+                i = new Intent(Carteira.this, NovaMoeda.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //FIM Codigo referente ao menu
 
     @SuppressLint("MissingInflatedId")
     @Override

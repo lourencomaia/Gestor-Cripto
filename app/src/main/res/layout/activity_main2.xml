@@ -65,10 +65,10 @@
 
         <Button
             android:id="@+id/idBtnAdicinarMoeda"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:backgroundTint="#186FB5"
+            android:layout_gravity="center"
             android:text="@string/AdicionarMoeda" />
 
     </LinearLayout>

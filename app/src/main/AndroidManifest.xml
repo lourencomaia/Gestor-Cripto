@@ -16,14 +16,14 @@
         android:theme="@style/Theme.TrabalhoDDM"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=".ActivityPrincipal"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Conversor"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

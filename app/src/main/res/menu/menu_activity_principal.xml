@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/idMenuConversor"
+        android:title="Conversor"
+        />
+    <item android:id="@+id/idMenuCarteira"
+        android:title="Carteira"
+        />
+
+    <item android:id="@+id/idMenuAdicionarMoeda"
+        android:title="Adicionar Moeda"
+        />
+
+</menu>

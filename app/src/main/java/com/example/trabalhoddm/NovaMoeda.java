@@ -84,22 +84,7 @@ public class NovaMoeda extends AppCompatActivity {
         }
     };
 
-//    void converter(){
-//        //ir buscar o o nome de cripto moeda a converter
-//        String criptoMoeda=  Data.getMoedas().get(Integer.parseInt(
-//                mSpCriptoMoedas.getSelectedItem().toString())).getName();
-//        // buscar a moeda para a qual queremos converter
-//        String moedaGovernamental =mSpMoedasGovernamentais.getSelectedItem().toString();
-//
-//        // quantidade de moedas a converter
-//        String quantidadeDeMoedasConcerter = (mEtQuantidadeMoedasConverter.getText().toString());
-//
-//        try {
-//            new BitcoinValueTask(mTvValorConvertido,criptoMoeda,Double.parseDouble(quantidadeDeMoedasConcerter),moedaGovernamental ).execute();
-//        }catch (Exception e){
-//            Toast.makeText(this,criptoMoeda, Toast.LENGTH_SHORT).show();
-//        }
-//    }
+
 
     @SuppressLint("Range")
     private double valorExistentePorMoeda(String moeda) {
@@ -125,7 +110,7 @@ public class NovaMoeda extends AppCompatActivity {
 
             if(res>0){
                 Toast.makeText(NovaMoeda.this,
-                        "Moeda inserida com sucesso" + res, Toast.LENGTH_SHORT).show();
+                        "Moeda inserida com sucesso", Toast.LENGTH_SHORT).show();
                 //caso se a moeda ja exista na base de dados
             }else if(res == -1){
                 double valorAnterior = valorExistentePorMoeda(moeda);

@@ -4,6 +4,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,12 +12,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +27,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity2 extends AppCompatActivity {
+public class ActivityPrincipal extends AppCompatActivity {
 
     DBhelper db;
     Intent i;
@@ -42,6 +45,37 @@ public class MainActivity2 extends AppCompatActivity {
     ArrayList<CriptoMoeda> lista_moeda = new ArrayList<>();
     double Total = 0;
 
+    //Codigo referente ao menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_activity_principal,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.idMenuConversor:{
+                i = new Intent(ActivityPrincipal.this, Conversor.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+            case R.id.idMenuCarteira:{
+                i = new Intent(ActivityPrincipal.this, Carteira.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+            case  R.id.idMenuAdicionarMoeda:{
+                i = new Intent(ActivityPrincipal.this, NovaMoeda.class);
+                activityResultLauncher.launch(i);
+                break;
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    //FIM Codigo referente ao menu
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -81,14 +115,14 @@ public class MainActivity2 extends AppCompatActivity {
         mLv_moedas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(MainActivity2.this, EditarMoeda.class);
+                Intent i = new Intent(ActivityPrincipal.this, EditarMoeda.class);
                 i.putExtra("moeda", lista_moedas.get(position).getMoeda());
                 activityResultLauncher.launch(i);
             }
         });
 
-        calculaValorTotalPortefolioEmDolares();
         listarMoedasListView();
+        calculaValorTotalPortefolioEmDolares();
 
     }
 
@@ -98,33 +132,35 @@ public class MainActivity2 extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.idBtnConverter:
-                    i = new Intent(MainActivity2.this, MainActivity.class);
+                    i = new Intent(ActivityPrincipal.this, Conversor.class);
                     //startActivity(i);
                     activityResultLauncher.launch(i);
                     break;
                 case R.id.idBtnAdicinarMoeda:
-                    i = new Intent(MainActivity2.this, NovaMoeda.class);
+                    i = new Intent(ActivityPrincipal.this, NovaMoeda.class);
                     activityResultLauncher.launch(i);
                     break;
 
                 case R.id.idBtnCarteira:
-                    i = new Intent(MainActivity2.this, Carteira.class);
-                    startActivity(i);
+                    i = new Intent(ActivityPrincipal.this, Carteira.class);
+                    activityResultLauncher.launch(i);
                     break;
             }
         }
     };
 
     double converter(String criptoMoeda, Double quantidadeDeMoedasConcerter) {
-        String m = null;
+        String m = "50";
         try {
             m = new BitcoinValueTask(mTvValorConvertido, criptoMoeda, 1.0, "eur").execute().get().toString();
-        } catch (Exception e) {
-            Toast.makeText(this, criptoMoeda, Toast.LENGTH_SHORT).show();
-        }
-        return quantidadeDeMoedasConcerter * Double.parseDouble(m);
-    }
+            return quantidadeDeMoedasConcerter * Double.parseDouble(m);
 
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(this, "Não foi possivel atualizar saldo", Toast.LENGTH_SHORT).show();
+        return 0;
+    }
     private void listartodasAsMoedasNome() {
         lista_moeda.clear();
         Cursor c = db.SelectAll_Carteira();
@@ -144,7 +180,6 @@ public class MainActivity2 extends AppCompatActivity {
         listartodasAsMoedasNome();
         lista_moeda.size();
 
-
         for (CriptoMoeda n : lista_moeda) {
             String moeda = n.getMoeda();
             Double quantidade = n.getQuantidade();
@@ -153,7 +188,7 @@ public class MainActivity2 extends AppCompatActivity {
             Total += valor;
         }
 
-        tv.setText(df.format(Total));
+        tv.setText(df.format(Total)+"€");
     }
 
     private void listarMoedasListView() {
