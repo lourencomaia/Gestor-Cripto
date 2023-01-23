@@ -37,14 +37,14 @@ public class Carteira extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_activity_conversor,menu);
+        inflater.inflate(R.menu.menu_activity_carteira,menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.idMenuConversor:{
+            case R.id.idMenuInicio:{
                 i = new Intent(Carteira.this, ActivityPrincipal.class);
                 activityResultLauncher.launch(i);
                 break;
@@ -109,7 +109,10 @@ public class Carteira extends AppCompatActivity {
             do {
                 @SuppressLint("Range") String moeda = c.getString( c.getColumnIndex("moeda"));
                 @SuppressLint("Range") double quantidade = Double.parseDouble(c.getString(c.getColumnIndex("quantidade")));
-                lista_moedas.add(new CriptoMoeda(moeda.toUpperCase(),quantidade));
+                if(quantidade!=0){
+                    lista_moedas.add(new CriptoMoeda(moeda.toUpperCase(),quantidade));
+                }
+
             }while (c.moveToNext());
         }
         ArrayAdapter<CriptoMoeda> adapter = new ArrayAdapter<>(

@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class Conversor extends AppCompatActivity {
         private Spinner mSpCriptoMoedas;
         private Spinner mSpMoedasGovernamentais;
@@ -28,7 +29,7 @@ public class Conversor extends AppCompatActivity {
         DBhelper db;
         Intent i;
 
-        TextView mTvValorConvertido;
+        TextView mTvValorConvertido,mTvValorConvertido2;
         Button mBtnConverter, mBtnAdicionarValor,mBtnCarteira;
         EditText mEtQuantidadeMoedasConverter;
 
@@ -45,19 +46,20 @@ public class Conversor extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.idMenuConversor:{
+            case R.id.idMenuInicio:{
                 i = new Intent(Conversor.this, ActivityPrincipal.class);
-                activityResultLauncher.launch(i);
+                startActivity(i);
+
                 break;
             }
             case R.id.idMenuCarteira:{
                 i = new Intent(Conversor.this, Carteira.class);
-                activityResultLauncher.launch(i);
+                startActivity(i);
                 break;
             }
             case  R.id.idMenuAdicionarMoeda:{
                 i = new Intent(Conversor.this, NovaMoeda.class);
-                activityResultLauncher.launch(i);
+                startActivity(i);
                 break;
             }
 
@@ -93,6 +95,7 @@ public class Conversor extends AppCompatActivity {
         mSpMoedasGovernamentais = findViewById(R.id.idSpMoedas);
 
         mTvValorConvertido = findViewById(R.id.idTvValorConvertido);
+        mTvValorConvertido2 = findViewById(R.id.idTvValorConvertido2);
         mEtQuantidadeMoedasConverter = findViewById(R.id.idEtQuantidadeMoedasConverter);
 
         db = new DBhelper(this);
@@ -124,24 +127,58 @@ public class Conversor extends AppCompatActivity {
         }
     };
 
+    /*void converter(){
+        //ir buscar o o nome de cripto moeda a converter
+        String criptoMoeda=  Data.getMoedas().get(Integer.parseInt(
+                mSpCriptoMoedas.getSelectedItem().toString())).getName();
+        // buscar a moeda para a qual queremos converter
+        String moedaGovernamental =mSpMoedasGovernamentais.getSelectedItem().toString();
+        // quantidade de moedas a converter
+        String quantidadeDeMoedasConcerter = (mEtQuantidadeMoedasConverter.getText().toString());
+        try {
+            new BitcoinValueTask(mTvValorConvertido,criptoMoeda,
+                    Double.parseDouble(quantidadeDeMoedasConcerter),moedaGovernamental ).execute();
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }*/
+
     void converter(){
         //ir buscar o o nome de cripto moeda a converter
         String criptoMoeda=  Data.getMoedas().get(Integer.parseInt(
                 mSpCriptoMoedas.getSelectedItem().toString())).getName();
         // buscar a moeda para a qual queremos converter
         String moedaGovernamental =mSpMoedasGovernamentais.getSelectedItem().toString();
-
         // quantidade de moedas a converter
         String quantidadeDeMoedasConcerter = (mEtQuantidadeMoedasConverter.getText().toString());
+        String m;
 
         try {
-            new BitcoinValueTask(mTvValorConvertido,criptoMoeda,Double.parseDouble(quantidadeDeMoedasConcerter),moedaGovernamental ).execute();
-            CriptoMoeda moeda1 = new CriptoMoeda(criptoMoeda,Double.parseDouble( mTvValorConvertido.getText().toString()));
-            //Total +=Double.parseDouble( mTvValorConvertido.getText().toString()) + 1;
-            //Toast.makeText(this,moeda1.getMoeda()+"= "+moeda1.getQuantidade(), Toast.LENGTH_SHORT).show();
+            m = new BitcoinValueTask(mTvValorConvertido2,criptoMoeda,
+                    Double.parseDouble(quantidadeDeMoedasConcerter),moedaGovernamental ).execute().get().toString();
+            db.Update_Valor_Moeda(criptoMoeda, Double.parseDouble(m));
+
         }catch (Exception e){
-            Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            m = String.valueOf(retornarValorMoedaBaseDados(criptoMoeda));
         }
+
+        double quantidadeDeMoedas = Double.parseDouble(quantidadeDeMoedasConcerter);
+        double cotacaoMoeda = Double.parseDouble(m);
+
+        mTvValorConvertido.setText(cotacaoMoeda * quantidadeDeMoedas+"");
+    }
+
+    @SuppressLint("Range")
+    private Double retornarValorMoedaBaseDados(String moeda){
+        String text = null;
+        Cursor c = db.SelectByMoeda_Carteira(moeda);
+        c.moveToFirst();
+        if(c.getCount()==1){
+            text = c.getString(c.getColumnIndex("valor_euros"));
+            //Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        }
+        return Double.parseDouble(text);
     }
 
     @SuppressLint("Range")
@@ -185,7 +222,7 @@ public class Conversor extends AppCompatActivity {
 
             }
         }
-        //setResult(1,i);
+
     }
 
 

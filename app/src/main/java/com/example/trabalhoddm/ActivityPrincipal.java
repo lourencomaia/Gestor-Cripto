@@ -32,9 +32,10 @@ public class ActivityPrincipal extends AppCompatActivity {
     DBhelper db;
     Intent i;
     ActivityResultLauncher<Intent> activityResultLauncher;
+    MinhaThread thread1 = new MinhaThread("thread1");
 
     TextView mTvValorConvertido, tv;
-    Button mBtnConverter, mBtnAdicionarValor, mBtnCarteira;
+    Button mBtnConverter, mBtnAtualizarSaldo, mBtnCarteira;
     List<CriptoMoeda> lista_moedas;
     ListView mLv_moedas;
     Button mBtnAdicinarMoeda;
@@ -98,6 +99,10 @@ public class ActivityPrincipal extends AppCompatActivity {
         mBtnCarteira = findViewById(R.id.idBtnCarteira);
         mBtnCarteira.setOnClickListener(mClickHandler);
 
+        //botao atualizar saldo
+        mBtnAtualizarSaldo = findViewById(R.id.idBtnAtualizarSaldo);
+        mBtnAtualizarSaldo.setOnClickListener(mClickHandler);
+
         mLv_moedas = findViewById(R.id.idLv_moedas);
         mBtnAdicinarMoeda = findViewById(R.id.idBtnAdicinarMoeda);
         mBtnAdicinarMoeda.setOnClickListener(mClickHandler);
@@ -106,7 +111,7 @@ public class ActivityPrincipal extends AppCompatActivity {
             @Override
             public void onActivityResult(ActivityResult result) {
                 listarMoedasListView();
-                calculaValorTotalPortefolioEmDolares();
+                calculaValorTotalPortefolioEmEuros();
                 //Toast.makeText(getApplicationContext(), "Voltei", Toast.LENGTH_SHORT).show();
             }
 
@@ -122,7 +127,7 @@ public class ActivityPrincipal extends AppCompatActivity {
         });
 
         listarMoedasListView();
-        calculaValorTotalPortefolioEmDolares();
+        calculaValorTotalPortefolioEmEuros();
 
     }
 
@@ -145,22 +150,41 @@ public class ActivityPrincipal extends AppCompatActivity {
                     i = new Intent(ActivityPrincipal.this, Carteira.class);
                     activityResultLauncher.launch(i);
                     break;
+                case R.id.idBtnAtualizarSaldo:
+                    calculaValorTotalPortefolioEmEuros();
+                    break;
             }
         }
     };
 
+    @SuppressLint("Range")
     double converter(String criptoMoeda, Double quantidadeDeMoedasConcerter) {
-        String m = "50";
+        String m = "";
         try {
             m = new BitcoinValueTask(mTvValorConvertido, criptoMoeda, 1.0, "eur").execute().get().toString();
-            return quantidadeDeMoedasConcerter * Double.parseDouble(m);
+
+            //serve para atualizar a base de dados do valor da moeda cada vez que é feita uma requisição á API
+            db.Update_Valor_Moeda(criptoMoeda, Double.parseDouble(m));
 
         } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            m = retornarValorMoedaBaseDados(criptoMoeda);
         }
-        Toast.makeText(this, "Não foi possivel atualizar saldo", Toast.LENGTH_SHORT).show();
-        return 0;
+        return quantidadeDeMoedasConcerter * Double.parseDouble(m);
     }
+
+    @SuppressLint("Range")
+    private String retornarValorMoedaBaseDados(String moeda){
+        String text = null;
+        Cursor c = db.SelectByMoeda_Carteira(moeda);
+        c.moveToFirst();
+        if(c.getCount()==1){
+            text = c.getString(c.getColumnIndex("valor_euros"));
+            Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        }
+        return text;
+    }
+
+
     private void listartodasAsMoedasNome() {
         lista_moeda.clear();
         Cursor c = db.SelectAll_Carteira();
@@ -172,10 +196,11 @@ public class ActivityPrincipal extends AppCompatActivity {
                 lista_moeda.add(new CriptoMoeda(moeda.toUpperCase(), quantidade));
             } while (c.moveToNext());
         }
-
     }
 
-    public void calculaValorTotalPortefolioEmDolares() {
+
+
+    public void calculaValorTotalPortefolioEmEuros() {
         Total = 0;
         listartodasAsMoedasNome();
         lista_moeda.size();
@@ -184,10 +209,8 @@ public class ActivityPrincipal extends AppCompatActivity {
             String moeda = n.getMoeda();
             Double quantidade = n.getQuantidade();
             double valor = converter(moeda.toLowerCase(), quantidade);
-            //Toast.makeText(this, ""+valor, Toast.LENGTH_SHORT).show();
             Total += valor;
         }
-
         tv.setText(df.format(Total)+"€");
     }
 
@@ -195,18 +218,22 @@ public class ActivityPrincipal extends AppCompatActivity {
         lista_moedas.clear();
         Cursor c = db.SelectAll_Carteira();
         c.moveToFirst();
-
         if (c.getCount() > 0) {
             do {
                 @SuppressLint("Range") String moeda = c.getString(c.getColumnIndex("moeda"));
                 @SuppressLint("Range") double quantidade = Double.parseDouble(c.getString(c.getColumnIndex("quantidade")));
-                lista_moedas.add(new CriptoMoeda(moeda.toUpperCase(), quantidade));
+                if(quantidade != 0){
+                    lista_moedas.add(new CriptoMoeda(moeda.toUpperCase(), quantidade));
+                }
+
             } while (c.moveToNext());
         }
         ArrayAdapter<CriptoMoeda> adapter = new ArrayAdapter<>(
                 this, android.R.layout.simple_list_item_1, lista_moedas);
         mLv_moedas.setAdapter(adapter);
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

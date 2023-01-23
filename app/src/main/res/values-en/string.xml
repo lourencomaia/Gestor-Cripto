@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">Crypto Manager</string>
+    <string name="AdicionarMoeda">Add New Currency to Wallet</string>
+    <string name="dados_da_moeda">Currency Data</string>
+    <string name="atualizar"> Update</string>
+    <string name="eliminar">Delete</string>
+    <string name="adicionar_moeda">Adicionar Moeda</string>
+    <string name="carteira">Add Currency</string>
+    <string name="inicio">Inicio</string>
+    <string name="converter">Convert</string>
+    <string name="valor_convertido">Converted Value:</string>
+    <string name="adicionar_valor_convertido_carteira">Add Converted Value to wallet</string>
+    <string name="visualizar_carteira">View wallet</string>
+    <string name="saldo">Balance</string>
+    <string name="conversor">Converter</string>
+    <string name="adicionar_nova_moeda_carteira">Add New Currency to Wallet</string>
+    <string name="gestor_cripto">Crypto Manager</string>
+    <string name="name">Name</string>
+
+    <string-array name="moedaGovernamentalListaItens">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>BRL</item>
+        <item>GBP</item>
+        <item>CHF</item>
+    </string-array>
+
+</resources>

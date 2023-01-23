@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">Gestor Cripto</string>
     <string name="AdicionarMoeda">Adicionar Nova Moeda á Carteira </string>
+    <string name="dados_da_moeda">Dados da Moeda</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="adicionar_moeda">Adicionar Moeda</string>
+    <string name="carteira">Carteira</string>
+    <string name="inicio">Inicio</string>
+    <string name="converter">Converter</string>
+    <string name="valor_convertido">Valor Convertido:</string>
+    <string name="adicionar_valor_convertido_carteira">Adicionar valor Convertido à Carteira</string>
+    <string name="visualizar_carteira">Visualizar Carteira</string>
+    <string name="saldo">Saldo</string>
+    <string name="conversor">Conversor</string>
+    <string name="adicionar_nova_moeda_carteira">Adicionar Nova Moeda à Carteira</string>
+    <string name="gestor_cripto">Gestor Cripto</string>
+    <string name="name">Name</string>
 
     <string-array name="moedaGovernamentalListaItens">
         <item>USD</item>

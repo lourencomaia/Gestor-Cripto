@@ -48,10 +48,8 @@ public class BitcoinValueTask extends AsyncTask<Void, Void, Double> {
     @Override
     protected void onPostExecute(Double result) {
         if (result != null) {
-            double resultado = result * quantidadeConverter;
+            double resultado = result ;
             resultTextView.setText(""+resultado);
-
-
         } else {
             resultTextView.setText("Error");
         }

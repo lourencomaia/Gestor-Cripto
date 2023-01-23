@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background1"
     android:orientation="vertical"
-    tools:context=".MainActivity2">
+    tools:context=".ActivityPrincipal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Saldo"
+            android:text="@string/saldo"
             android:textSize="40sp"
             android:visibility="visible" />
 
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50sp"
             android:backgroundTint="#186FB5"
-            android:text="Conversor" />
+            android:text="@string/conversor" />
 
         <Button
             android:id="@+id/idBtnCarteira"
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:backgroundTint="#186FB5"
-            android:text="Visualizar Carteira" />
+            android:text="@string/visualizar_carteira" />
 
 
         <ListView
@@ -72,6 +72,13 @@
             android:text="@string/AdicionarMoeda" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/idBtnAtualizarSaldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:icon="@android:drawable/ic_popup_sync" />
 
 
     <TextView

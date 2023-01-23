@@ -12,11 +12,12 @@ public class DBhelper extends SQLiteOpenHelper {
     private static int versao =1;
     private static String nomeBD = "ExemploBD.db";
     String[] sql = {
-            "CREATE TABLE Carteira(moeda TEXT PRIMARY KEY, quantidade NUMBER);",
-                    "insert into Carteira Values('bitcoin','2');"};
+            "CREATE TABLE Carteira(moeda TEXT PRIMARY KEY, quantidade NUMBER,valor_euros NUMBER);",
+                    "insert into Carteira Values('bitcoin','2',0);"};
 
     public DBhelper(@Nullable Context context) {
-        super(context, nomeBD,null, versao);}
+        super(context, nomeBD,null, versao);
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         for (int i = 0; i < sql.length; i++) {db.execSQL(sql[i]);}}
@@ -50,5 +51,11 @@ public class DBhelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("select * from Carteira where moeda=?", new String[]{moeda});
     }
+    public long Update_Valor_Moeda(String moeda, double valor_euros){
+        SQLiteDatabase db =getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("valor_euros",valor_euros);
+        return db.update("Carteira", values,"moeda=?",new String[]{moeda});
+    }//======================================DELETE================================================
 }
 

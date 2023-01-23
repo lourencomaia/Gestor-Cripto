@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50sp"
         android:gravity="center"
-        android:text="Dados da Moeda"
+        android:text="@string/dados_da_moeda"
         android:textColor="@color/white"
         android:textSize="50sp" />
 
@@ -35,13 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#186FB5"
-        android:text="Atualizar" />
+        android:text="@string/atualizar" />
 
     <Button
         android:id="@+id/idBtnEliminar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#EF1010"
-        android:text="Eliminar" />
+        android:text="@string/eliminar" />
 
 </LinearLayout>

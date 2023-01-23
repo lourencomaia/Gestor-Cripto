@@ -36,8 +36,8 @@ public class EditarMoeda extends AppCompatActivity {
         mBtnEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long res = db.Delete_Moeda(moeda.toLowerCase());
-                if(res>0){
+                long res = db.Update_Moeda(moeda.toLowerCase(),0);
+                if(res > 0){
                     Toast.makeText(EditarMoeda.this,
                             "Moeda eliminada com sucesso",
                             Toast.LENGTH_SHORT).show();

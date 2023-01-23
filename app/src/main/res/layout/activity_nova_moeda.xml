@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50sp"
         android:gravity="center"
-        android:text="Adicionar Moeda"
+        android:text="@string/adicionar_moeda"
         android:textSize="50sp" />
 
     <Spinner
@@ -28,15 +28,7 @@
         android:padding="5sp" />
 
 
-    <!--    <Spinner-->
-    <!--        android:id="@+id/idSpMoedas"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="10sp"-->
-    <!--        android:paddingVertical="10sp"-->
-    <!--        android:layout_marginHorizontal="5sp"-->
-    <!--        android:background="@drawable/border_spinner"-->
-    <!--        />-->
+
 
 
     <EditText
@@ -46,36 +38,12 @@
         android:hint="1.0"
         android:inputType="numberDecimal" />
 
-    <!--    <Button-->
-    <!--        android:id="@+id/idBtnConverter"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="50sp"-->
-    <!--        android:text="Converter"/>-->
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <!--        <TextView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Valor Adicionar: "-->
-        <!--            android:gravity="center"-->
-        <!--            android:textSize="20sp"-->
-
-        <!--            />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/idTvValorConvertido"-->
-        <!--            android:gravity="center"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:hint="0"-->
-        <!--            android:textSize="40sp"-->
-        <!--            />-->
-
 
     </LinearLayout>
 
@@ -84,14 +52,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="Adicionar Nova Moeda à Carteira" />
+        android:text="@string/adicionar_nova_moeda_carteira" />
 
     <Button
         android:id="@+id/idBtnCarteira"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:text="Visualizar Carteira" />
+        android:text="@string/adicionar_moeda" />
 
 
 </LinearLayout>
