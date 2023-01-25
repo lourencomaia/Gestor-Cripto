@@ -16,6 +16,7 @@
     <string name="adicionar_nova_moeda_carteira">Adicionar Nova Moeda à Carteira</string>
     <string name="gestor_cripto">Gestor Cripto</string>
     <string name="name">Name</string>
+    <string name="cancelar">Cancelar</string>
 
     <string-array name="moedaGovernamentalListaItens">
         <item>USD</item>

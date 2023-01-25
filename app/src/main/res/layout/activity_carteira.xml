@@ -19,8 +19,8 @@
 
     <ListView
         android:id="@+id/idLv_moedas"
-        android:scrollbarSize="@android:dimen/app_icon_size"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scrollbarSize="@android:dimen/app_icon_size" />
 
 </LinearLayout>

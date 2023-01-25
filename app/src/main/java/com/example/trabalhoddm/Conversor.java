@@ -72,7 +72,7 @@ public class Conversor extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_conversor);
 
         db = new DBhelper(this);
 
@@ -127,21 +127,7 @@ public class Conversor extends AppCompatActivity {
         }
     };
 
-    /*void converter(){
-        //ir buscar o o nome de cripto moeda a converter
-        String criptoMoeda=  Data.getMoedas().get(Integer.parseInt(
-                mSpCriptoMoedas.getSelectedItem().toString())).getName();
-        // buscar a moeda para a qual queremos converter
-        String moedaGovernamental =mSpMoedasGovernamentais.getSelectedItem().toString();
-        // quantidade de moedas a converter
-        String quantidadeDeMoedasConcerter = (mEtQuantidadeMoedasConverter.getText().toString());
-        try {
-            new BitcoinValueTask(mTvValorConvertido,criptoMoeda,
-                    Double.parseDouble(quantidadeDeMoedasConcerter),moedaGovernamental ).execute();
-        }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }*/
+
 
     void converter(){
         //ir buscar o o nome de cripto moeda a converter
@@ -189,7 +175,7 @@ public class Conversor extends AppCompatActivity {
         double quantidade = 0;
         if (c.getCount() == 1) {
             quantidade = Double.parseDouble(c.getString(c.getColumnIndex("quantidade")));
-            Toast.makeText(this, "" + quantidade, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "" + quantidade, Toast.LENGTH_SHORT).show();
         }
         return quantidade;
     }

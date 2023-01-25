@@ -65,8 +65,6 @@ public class Data {
         listaMoedas.add(XCH);
 
 
-
-
         return listaMoedas;
     }
 

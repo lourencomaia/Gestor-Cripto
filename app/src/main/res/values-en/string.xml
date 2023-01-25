@@ -18,6 +18,7 @@
     <string name="adicionar_nova_moeda_carteira">Add New Currency to Wallet</string>
     <string name="gestor_cripto">Crypto Manager</string>
     <string name="name">Name</string>
+    <string name="cancelar">cancel</string>
 
     <string-array name="moedaGovernamentalListaItens">
         <item>USD</item>

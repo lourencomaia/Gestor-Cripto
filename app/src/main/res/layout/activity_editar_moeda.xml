@@ -21,8 +21,7 @@
         android:id="@+id/idEtMoedaSelecionada"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:editable="false"
-        />
+        android:editable="false" />
 
     <EditText
         android:id="@+id/idEtQuantidade"

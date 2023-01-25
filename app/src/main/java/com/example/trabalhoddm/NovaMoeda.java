@@ -94,7 +94,7 @@ public class NovaMoeda extends AppCompatActivity {
         double quantidade = 0;
         if (c.getCount() == 1) {
             quantidade = Double.parseDouble(c.getString(c.getColumnIndex("quantidade")));
-            Toast.makeText(this, "" + quantidade, Toast.LENGTH_SHORT).show();
+
         }
         return quantidade;
     }

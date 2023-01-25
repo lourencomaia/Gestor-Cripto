@@ -54,31 +54,44 @@
             android:backgroundTint="#186FB5"
             android:text="@string/visualizar_carteira" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/idBtnAtualizarSaldo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2sp"
+                android:backgroundTint="#186FB5"
+                android:gravity="center"
+                app:icon="@android:drawable/ic_popup_sync" />
+
+            <Button
+                android:id="@+id/idBtnAdicinarMoeda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#186FB5"
+                android:gravity="center"
+
+                android:text="@string/AdicionarMoeda" />
+
+        </LinearLayout>
+
 
         <ListView
             android:id="@+id/idLv_moedas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="vertical"
             android:textColor="@color/white"
+
 
             />
 
-        <Button
-            android:id="@+id/idBtnAdicinarMoeda"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#186FB5"
-            android:layout_gravity="center"
-            android:text="@string/AdicionarMoeda" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/idBtnAtualizarSaldo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:icon="@android:drawable/ic_popup_sync" />
 
 
     <TextView

@@ -42,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50sp"
+        android:backgroundTint="#186FB5"
         android:text="@string/converter" />
 
     <LinearLayout
@@ -74,6 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:backgroundTint="#186FB5"
         android:text="@string/adicionar_valor_convertido_carteira" />
 
     <Button
@@ -81,17 +83,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:backgroundTint="#186FB5"
         android:text="@string/visualizar_carteira" />
+
     <TextView
         android:id="@+id/idTvValorConvertido2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="true"
         android:gravity="center"
         android:hint=""
-        android:textSize="0sp"
-        android:enabled="true"
-        />
-
+        android:textSize="0sp" />
 
 
 </LinearLayout>

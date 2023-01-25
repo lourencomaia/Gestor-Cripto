@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class ActivityPrincipal extends AppCompatActivity {
     DBhelper db;
     Intent i;
     ActivityResultLauncher<Intent> activityResultLauncher;
-    MinhaThread thread1 = new MinhaThread("thread1");
+
 
     TextView mTvValorConvertido, tv;
     Button mBtnConverter, mBtnAtualizarSaldo, mBtnCarteira;
@@ -82,7 +81,7 @@ public class ActivityPrincipal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_inicial);
         lista_moedas = new ArrayList<>();
 
 
@@ -104,6 +103,8 @@ public class ActivityPrincipal extends AppCompatActivity {
         mBtnAtualizarSaldo.setOnClickListener(mClickHandler);
 
         mLv_moedas = findViewById(R.id.idLv_moedas);
+
+
         mBtnAdicinarMoeda = findViewById(R.id.idBtnAdicinarMoeda);
         mBtnAdicinarMoeda.setOnClickListener(mClickHandler);
 
@@ -112,7 +113,7 @@ public class ActivityPrincipal extends AppCompatActivity {
             public void onActivityResult(ActivityResult result) {
                 listarMoedasListView();
                 calculaValorTotalPortefolioEmEuros();
-                //Toast.makeText(getApplicationContext(), "Voltei", Toast.LENGTH_SHORT).show();
+
             }
 
         });
@@ -179,7 +180,7 @@ public class ActivityPrincipal extends AppCompatActivity {
         c.moveToFirst();
         if(c.getCount()==1){
             text = c.getString(c.getColumnIndex("valor_euros"));
-            Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
         }
         return text;
     }
@@ -242,7 +243,7 @@ public class ActivityPrincipal extends AppCompatActivity {
         if(requestCode == 1){
             listarMoedasListView();
         }else if(requestCode == 2){
-            Toast.makeText(getApplicationContext(), "Voltei", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Voltei", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -13,7 +13,22 @@ public class DBhelper extends SQLiteOpenHelper {
     private static String nomeBD = "ExemploBD.db";
     String[] sql = {
             "CREATE TABLE Carteira(moeda TEXT PRIMARY KEY, quantidade NUMBER,valor_euros NUMBER);",
-                    "insert into Carteira Values('bitcoin','2',0);"};
+                    "insert into Carteira Values('bitcoin','0',22588);",
+            "insert into Carteira Values('binancecoin','0',300.15);",
+            "insert into Carteira Values('ethereum','0',1544.65);",
+            "insert into Carteira Values('ripple','0',0.406);",
+            "insert into Carteira Values('cardano','0',0.35);",
+            "insert into Carteira Values('dogecoin','0',0.08);",
+            "insert into Carteira Values('matic','0',0.948);",
+            "insert into Carteira Values('solana','0',23.05);",
+            "insert into Carteira Values('ravencoin','0',0.0277);",
+            "insert into Carteira Values('ethereum-classic','0',21.13);",
+            "insert into Carteira Values('chia','0',45.14);",
+
+
+
+
+    };
 
     public DBhelper(@Nullable Context context) {
         super(context, nomeBD,null, versao);
